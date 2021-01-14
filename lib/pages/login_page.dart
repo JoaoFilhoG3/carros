@@ -1,4 +1,6 @@
 import 'package:carros/pages/home_page.dart';
+import 'package:carros/pages/login_api.dart';
+import 'package:carros/pages/usuario.dart';
 import 'package:carros/utils/nav.dart';
 import 'package:carros/widgets/app_button.dart';
 import 'package:carros/widgets/app_text.dart';
@@ -52,11 +54,19 @@ class _LoginPageState extends State<LoginPage> {
             ),
             AppButton(
               "Login",
-              onPressed: () {
+              onPressed: () async {
                 if (!_formKey.currentState.validate()) {
                   return;
                 }
-                push(context, HomePage());
+                String login = _txtLogin.text;
+                String senha = _txtSenha.text;
+
+                Usuario user = await LoginApi.login(login, senha);
+                if(user != null) {
+                  push(context, HomePage());
+                }else{
+                  print("Login incorreto");
+                }
               },
             ),
           ],
@@ -76,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
     if (texto.isEmpty) {
       return "Campo senha obrigatório!";
     }
-    if (texto.length < 8) {
+    if (texto.length < 3) {
       return "A senha deve ter pelo menos 8 caracteres!";
     }
     return null;
