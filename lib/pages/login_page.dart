@@ -1,3 +1,5 @@
+import 'package:carros/widgets/app_button.dart';
+import 'package:carros/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.all(16),
         child: ListView(
           children: [
-            _buildTextFormField(
+            AppText(
               "Login",
               "Digite o login",
               controller: _txtLogin,
@@ -35,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 10,
             ),
-            _buildTextFormField(
+            AppText(
               "Senha",
               "Digite sua senha",
               controller: _txtSenha,
@@ -46,9 +48,9 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 20,
             ),
-            _buildButton(
+            AppButton(
               "Login",
-              () {
+              onPressed: () {
                 if (!_formKey.currentState.validate()) {
                   return;
                 }
@@ -77,56 +79,6 @@ class _LoginPageState extends State<LoginPage> {
       return "A senha deve ter pelo menos 8 caracteres!";
     }
     return null;
-  }
-
-  Container _buildButton(String text, Function onPressed()) {
-    return Container(
-      height: 46,
-      child: RaisedButton(
-        color: Colors.blue,
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
-        ),
-        onPressed: onPressed,
-      ),
-    );
-  }
-
-  TextFormField _buildTextFormField(
-    String label,
-    String hint, {
-    bool password = false,
-    TextEditingController controller,
-    FormFieldValidator<String> validator,
-    TextInputType keyboardType,
-    TextInputAction textInputAction,
-  }) {
-    return TextFormField(
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      validator: validator,
-      controller: controller,
-      obscureText: password,
-      style: TextStyle(
-        fontSize: 25,
-        color: Colors.blue,
-      ),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(
-          fontSize: 25,
-          color: Colors.grey,
-        ),
-        hintText: hint,
-        hintStyle: TextStyle(
-          fontSize: 16,
-        ),
-      ),
-    );
   }
 
   AppBar _buildAppBar() {
